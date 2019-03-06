@@ -22,7 +22,6 @@ public class Utils {
 
     public static ArrayList<ElectionResult> parse2016PresidentialResults(String file) {
         ArrayList<ElectionResult> output = new ArrayList<>();
-
         String[] arr = file.split("\n");
 
         for (int i = 1; i < arr.length; i++) {
@@ -42,16 +41,11 @@ public class Utils {
 
         for (int i = 1; i < arrByComma.length; i++) {
             String curr = arrByComma[i];
-            int indexOfQuote1 = s.indexOf("\"");
 
-            if (alphabet.contains(curr.substring(0, 1))) {
-                list.add(curr);
-            } else if (i == 6) {//
+            if (i < 6 || i > 7) list.add(curr);
+             else if (i == 6) {
                 if(curr.substring(0, 1).equals("\"")) {
-                    int indexOfQuote2 = s.indexOf("\"", indexOfQuote1 + 1);
-                    String num = s.substring(indexOfQuote1 + 1, indexOfQuote2);
-                    num = num.replaceAll(",", "");
-
+                    String num = removeQuotesCommas(s);
                     int numOfCommas = num.length() / 3;
                     if (num.length() % 3 == 0) {
                         numOfCommas--;
@@ -60,12 +54,19 @@ public class Utils {
                     list.add(num);
                 }
                 else list.add(curr);
-
-
-            } else if (curr.substring(curr.length() - 1).equals("%")) {
+            } else if (i == 7) {
                 list.add(curr.substring(0, curr.length() - 1));
-            } else list.add(curr);
+            }
         }
         return list;
+    }
+
+    private static String removeQuotesCommas(String s) {
+        int indexOfQuote1 = s.indexOf("\"");
+        int indexOfQuote2 = s.indexOf("\"", indexOfQuote1 + 1);
+        String num = s.substring(indexOfQuote1 + 1, indexOfQuote2);
+        num = num.replaceAll(",", "");
+
+        return num;
     }
 }
