@@ -35,10 +35,7 @@ public class Utils {
 
     private static ArrayList<String> extractData(String s) {
         ArrayList<String> list = new ArrayList<>();
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-
         String[] arrByComma = s.split(",");
-
         for (int i = 1; i < arrByComma.length; i++) {
             String curr = arrByComma[i];
 
@@ -46,11 +43,8 @@ public class Utils {
              else if (i == 6) {
                 if(curr.substring(0, 1).equals("\"")) {
                     String num = removeQuotesCommas(s);
-                    int numOfCommas = num.length() / 3;
-                    if (num.length() % 3 == 0) {
-                        numOfCommas--;
-                    }
-                    i += numOfCommas;
+                    int commas = numOfCommasToAdd(num);
+                    i += commas;
                     list.add(num);
                 }
                 else list.add(curr);
@@ -59,6 +53,14 @@ public class Utils {
             }
         }
         return list;
+    }
+
+    private static int numOfCommasToAdd(String num) {
+        int numOfCommas = num.length() / 3;
+        if (num.length() % 3 == 0) {
+            numOfCommas--;
+        }
+        return numOfCommas;
     }
 
     private static String removeQuotesCommas(String s) {
