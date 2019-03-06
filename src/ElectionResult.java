@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class ElectionResult {
     private double votesDem;
     private double votesGOP;
@@ -11,6 +13,21 @@ public class ElectionResult {
     private double combinedFips;
 
     public ElectionResult() {
+
+    }
+
+    public void addData(ArrayList<String> list){
+        int count = 0;
+        this.votesDem = Double.parseDouble(list.get(count));
+        this.votesGOP = Double.parseDouble(list.get(++count));
+        this.totalVotes = Double.parseDouble(list.get(++count));
+        this.perDem = Double.parseDouble(list.get(++count));
+        this.perGOP = Double.parseDouble(list.get(++count));
+        this.diff = Double.parseDouble(list.get(++count));
+        this.perPointDiff = Double.parseDouble(list.get(++count));
+        this.stateAbbrv = list.get(++count);
+        this.countyName = list.get(++count);
+        this.combinedFips = Double.parseDouble(list.get(++count));
 
     }
 

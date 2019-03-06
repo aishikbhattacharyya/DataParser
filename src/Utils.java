@@ -27,28 +27,11 @@ public class Utils {
 
         for (int i = 1; i < arr.length; i++) {
             ArrayList<String> list = extractData(arr[i]);
-            ElectionResult er = createElectionResult(list);
+            ElectionResult er = new ElectionResult();
+            er.addData(list);
             output.add(er);
         }
         return output;
-    }
-
-    private static ElectionResult createElectionResult(ArrayList<String> list) {
-        ElectionResult er = new ElectionResult();
-
-        int count = 0;
-        er.setVotesDem(Double.parseDouble(list.get(count)));
-        er.setVotesGOP(Double.parseDouble(list.get(++count)));
-        er.setTotalVotes(Double.parseDouble(list.get(++count)));
-        er.setPerDem(Double.parseDouble(list.get(++count)));
-        er.setPerGOP(Double.parseDouble(list.get(++count)));
-        er.setDiff(Double.parseDouble(list.get(++count)));
-        er.setPerPointDiff(Double.parseDouble(list.get(++count)));
-        er.setStateAbbrv(list.get(++count));
-        er.setCountyName(list.get(++count));
-        er.setCombinedFips(Double.parseDouble(list.get(++count)));
-
-        return er;
     }
 
     private static ArrayList<String> extractData(String s) {
