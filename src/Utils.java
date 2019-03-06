@@ -28,6 +28,7 @@ public class Utils {
             ArrayList<String> list = extractData(arr[i]);
             ElectionResult er = new ElectionResult();
             er.addData(list);
+
             output.add(er);
         }
         return output;
@@ -38,8 +39,9 @@ public class Utils {
         String[] arrByComma = s.split(",");
         for (int i = 1; i < arrByComma.length; i++) {
             String curr = arrByComma[i];
+            int length = arrByComma.length;
 
-            if (i < 6 || i > 7) list.add(curr);
+            if (i < 6 || i > length - 4) list.add(curr);
              else if (i == 6) {
                 if(curr.substring(0, 1).equals("\"")) {
                     String num = removeQuotesCommas(s);
@@ -48,7 +50,7 @@ public class Utils {
                     list.add(num);
                 }
                 else list.add(curr);
-            } else if (i == 7) {
+            } else if (i == length - 4) {
                 list.add(curr.substring(0, curr.length() - 1));
             }
         }
