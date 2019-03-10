@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Education2016 {
     private double noHighSchool;
     private double onlyHighSchool;
@@ -34,5 +36,12 @@ public class Education2016 {
 
     public void setBachelorsOrMore(double bachelorsOrMore) {
         this.bachelorsOrMore = bachelorsOrMore;
+    }
+
+    public void addData(ArrayList<String> list) {
+        this.noHighSchool = Double.parseDouble(list.get(0));
+        this.onlyHighSchool = Double.parseDouble(list.get(1));
+        this.someCollege = Double.parseDouble(list.get(2));
+        this.bachelorsOrMore = Double.parseDouble(list.get(3));
     }
 }
