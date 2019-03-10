@@ -154,15 +154,11 @@ public class Utils {
         ArrayList<String> list = new ArrayList<>();
         s = removeQuotesCommasLine(s);
         String[] arrByComma = s.split(",");
-        int count = 0;
 
-        for (int i = 45; i < arrByComma.length; i++) { //0
-            String curr = arrByComma[i];
-
-            if(curr.equals("")) count++;
-            if(count >= 45 && count <= 48) list.add(curr);
-            if(count == 48) return list;
-        }
+        list.add(arrByComma[45]);
+        list.add(arrByComma[46]);
+        list.add(arrByComma[47]);
+        list.add(arrByComma[48]);
         return list;
     }
 
@@ -182,15 +178,4 @@ public class Utils {
         }
         return output;
     }
-
-        /*String str = "FIPStxt,State,Area_name,Rural_urban_continuum_code_2013,Urban_influence_code_2013,Metro_2013,Civilian_labor_force_2007,Employed_2007,Unemployed_2007,Unemployment_rate_2007,Civilian_labor_force_2008,Employed_2008,Unemployed_2008,Unemployment_rate_2008,Civilian_labor_force_2009,Employed_2009,Unemployed_2009,Unemployment_rate_2009,Civilian_labor_force_2010,Employed_2010,Unemployed_2010,Unemployment_rate_2010,Civilian_labor_force_2011,Employed_2011,Unemployed_2011,Unemployment_rate_2011,Civilian_labor_force_2012,Employed_2012,Unemployed_2012,Unemployment_rate_2012,Civilian_labor_force_2013,Employed_2013,Unemployed_2013,Unemployment_rate_2013,Civilian_labor_force_2014,Employed_2014,Unemployed_2014,Unemployment_rate_2014,Civilian_labor_force_2015,Employed_2015,Unemployed_2015,Unemployment_rate_2015,Civilian_labor_force_2016,Employed_2016,Unemployed_2016,Unemployment_rate_2016,Civilian_labor_force_2017,Employed_2017,Unemployed_2017,Unemployment_rate_2017,Median_Household_Income_2016,Med_HH_Income_Percent_of_State_Total_2016";
-
-        String[] arr2 = str.split(",");
-
-        for(int i = 0; i < arr2.length; i++) {
-            if (arr2[i].equals("Civilian_labor_force_2016")) {
-                System.out.println(i);
-            }
-        }
-        return new ArrayList<>();*/
 }
