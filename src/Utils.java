@@ -76,14 +76,64 @@ public class Utils {
     public static ArrayList<State> parseStateData(String elecFile, String educFile, String employFile) {
         ArrayList<State> output = new ArrayList<>();
 
-        //ArrayList<String> elecData = extractElecData(elecFile);
-        //ArrayList<String> educData = extractEducData(arr[i], educFile);
+        ArrayList<Election2016> elecData = parseElecData(elecFile);
+        ArrayList<Education2016> educData = parseEducData(educFile);
         ArrayList<Employment2016> employData = parseEmployData(employFile);
         //State s = createState(elecData, educData, employData);
 
         //output.add(s);
 
         return output;
+    }
+
+    private static ArrayList<Education2016> parseEducData(String educFile) {
+        ArrayList<Education2016> output = new ArrayList<>();
+        String[] arr = educFile.split("\n");
+
+        for (int i = 6; i < arr.length; i++) {
+            ArrayList<String> list = extractEducData(arr[i]);
+            Education2016 educ = new Education2016();
+            educ.addData(list);
+
+            output.add(educ);
+        }
+        return output;
+    }
+
+    private static ArrayList<String> extractEducData(String s) {
+        ArrayList<String> list = new ArrayList<>();
+        s = removeQuotesCommasLine(s);
+        String[] arrByComma = s.split(",");
+
+        list.add(arrByComma[39]);
+        list.add(arrByComma[40]);
+        list.add(arrByComma[41]);
+        list.add(arrByComma[42]);
+        return list;
+    }
+
+    private static ArrayList<Election2016> parseElecData(String elecFile) {
+        ArrayList<Election2016> output = new ArrayList<>();
+        String[] arr = elecFile.split("\n");
+
+        for (int i = 1; i < arr.length; i++) {
+            ArrayList<String> list = extractElecData(arr[i]);
+            Election2016 elec = new Election2016();
+            elec.addData(list);
+
+            output.add(elec);
+        }
+        return output;
+    }
+
+    private static ArrayList<String> extractElecData(String s) {
+        ArrayList<String> list = new ArrayList<>();
+        String[] arrByComma = s.split(",");
+
+        list.add(arrByComma[1]);
+        list.add(arrByComma[2]);
+        list.add(arrByComma[3]);
+        return list;
     }
 
     private static ArrayList<Employment2016> parseEmployData(String employFile) {
