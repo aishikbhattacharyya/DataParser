@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Employment2016 {
     private int totalLaborForce;
     private int employedLaborForce;
@@ -34,5 +36,12 @@ public class Employment2016 {
 
     public void setUnemployedPercent(double unemployedPercent) {
         this.unemployedPercent = unemployedPercent;
+    }
+
+    public void addData(ArrayList<String> list) {
+        this.totalLaborForce = Integer.parseInt(list.get(0));
+        this.employedLaborForce = Integer.parseInt(list.get(1));
+        this.unemployedLaborForce = Integer.parseInt(list.get(2));
+        this.unemployedPercent = Double.parseDouble(list.get(3));
     }
 }
