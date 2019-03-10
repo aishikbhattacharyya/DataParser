@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Election2016 {
     private double demVotes;
     private double gopVotes;
@@ -25,5 +27,11 @@ public class Election2016 {
 
     public void setTotalVotes(double totalVotes) {
         this.totalVotes = totalVotes;
+    }
+
+    public void addData(ArrayList<String> list) {
+        this.demVotes = Double.parseDouble(list.get(0));
+        this.gopVotes = Double.parseDouble(list.get(1));
+        this.totalVotes = Double.parseDouble(list.get(2));
     }
 }
