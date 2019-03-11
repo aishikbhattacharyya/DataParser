@@ -10,4 +10,8 @@ public class DataManager {
     public void setState(List<State> state) {
         this.state = state;
     }
+
+    public void add(State s){
+        state.add(s);
+    }
 }
