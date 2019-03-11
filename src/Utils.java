@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Utils {
@@ -74,16 +76,33 @@ public class Utils {
     }
 
     public static ArrayList<State> parseStateData(String elecFile, String educFile, String employFile) {
-        ArrayList<State> output = new ArrayList<>();
-
         ArrayList<Election2016> elecData = parseElecData(elecFile);
         ArrayList<Education2016> educData = parseEducData(educFile);
         ArrayList<Employment2016> employData = parseEmployData(employFile);
-        //State s = createState(elecData, educData, employData);
+        ArrayList<State> states = createStates(elecFile);
+        //ArrayList<County> counties = createCounties(elecFile, educFile, employFile, states);
 
-        //output.add(s);
+        return states;
+    }
 
-        return output;
+    /*private static ArrayList<County> createCounties(String elecFile, String educFile, String employFile, ArrayList<State> states) {
+        ArrayList<State> counties = new ArrayList<>();
+        String[] arr = elecFile.split("\n");
+    }*/
+
+    private static ArrayList<State> createStates(String elecFile) {
+        ArrayList<State> states = new ArrayList<>();
+        String[] arr = elecFile.split("\n");
+
+        for(int i = 1; i < arr.length; i++){
+            String[] curr = arr[i].split(",");
+            Collections.reverse(Arrays.asList(curr));
+
+            String state = arr[2];
+            State s = new State(state);
+            if(!states.contains(s)) states.add(s);
+        }
+        return states;
     }
 
     private static ArrayList<Education2016> parseEducData(String educFile) {
