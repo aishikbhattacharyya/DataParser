@@ -12,5 +12,9 @@ public class Main{
         //System.out.println(data);
 
         ArrayList<ElectionResult> list = Utils.parse2016PresidentialResults(data);
+
+        String file1 = Utils.readFileAsString("data/Education.csv");
+        String file2 = Utils.readFileAsString("data/Unemployment.csv");
+        Utils.parseStateData(data, file1, file2);
     }
 }
