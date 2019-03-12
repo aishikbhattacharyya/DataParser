@@ -5,6 +5,10 @@ public class County {
     private Education2016 educ2016;
     private Employment2016 employ2016;
 
+    public County(String name){
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
