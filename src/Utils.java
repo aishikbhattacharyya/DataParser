@@ -85,6 +85,13 @@ public class Utils {
         return states;
     }
 
+    public static DataManager getDataManager(String elecFile, String educFile, String employFile){
+        ArrayList<State> states = parseStateData(elecFile, educFile, employFile);
+        DataManager dm = new DataManager();
+        dm.setState(states);
+        return dm;
+    }
+
     private static void putDataIntoState(String elecFile, ArrayList<Election2016> elecData, String educFile, ArrayList<Education2016> educData, String employFile, ArrayList<Employment2016> employData, ArrayList<State> states) {
         String[] arr = elecFile.split("\n");
         ArrayList<County> counties = new ArrayList<>();
