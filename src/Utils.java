@@ -80,9 +80,59 @@ public class Utils {
         ArrayList<Education2016> educData = parseEducData(educFile);
         ArrayList<Employment2016> employData = parseEmployData(employFile);
         ArrayList<State> states = createStates(elecFile);
-        //ArrayList<County> counties = createCounties(elecFile, educFile, employFile, states);
+        putDataIntoState(elecFile, elecData, educFile, educData, employFile, employData, states);
 
         return states;
+    }
+
+    private static void putDataIntoState(String elecFile, ArrayList<Election2016> elecData, String educFile, ArrayList<Education2016> educData, String employFile, ArrayList<Employment2016> employData, ArrayList<State> states) {
+        String[] arr = elecFile.split("\n");
+        ArrayList<County> counties = new ArrayList<>();
+        String state = "";
+
+        for(int i = 1; i < arr.length; i++){
+            String[] curr = arr[i].split(",");
+            Collections.reverse(Arrays.asList(curr));
+
+            if(i == 0) state = curr[2];
+            if(!curr[2].equals(state)){
+                State s = getState(states, state);
+                s.setCounties(counties);
+                counties.clear();
+                state = curr[2];
+            }
+
+            String county = arr[1];
+
+            County c = new County(county);
+            c.setFips(Integer.parseInt(arr[0]));
+
+            int educIndex = getData(educFile, c.getName(), 6);
+            int employIndex = getData(employFile, c.getName(), 9);
+            Education2016 educ = educData.get(educIndex);
+            Employment2016 employ = employData.get(employIndex);
+
+            c.setEduc2016(educ);
+            c.setEmploy2016(employ);
+            c.setVote2016(elecData.get(i-1));
+        }
+    }
+
+    private static State getState(ArrayList<State> states, String state) {
+        for(State s: states){
+            if(s.getName().equals(state)) return s;
+        }
+        return null;
+    }
+
+    private static int getData(String educFile, String county, int i) {
+        String[] arr = educFile.split("\n");
+        for(int j = i; i < arr.length; i++){
+            String[] arrComma = arr[j].split(",");
+
+            if(arrComma[2].equals(county)) return i-j;
+        }
+        return -1;
     }
 
     /*private static ArrayList<County> createCounties(String elecFile, String educFile, String employFile, ArrayList<State> states) {
@@ -124,10 +174,10 @@ public class Utils {
         s = removeQuotesCommasLine(s);
         String[] arrByComma = s.split(",");
 
+        list.add(arrByComma[38]);
         list.add(arrByComma[39]);
         list.add(arrByComma[40]);
         list.add(arrByComma[41]);
-        list.add(arrByComma[42]);
         return list;
     }
 
