@@ -167,7 +167,7 @@ public class Utils {
         String[] arr = educFile.split("\n");
 
         for (int i = 6; i < 3288; i++) {//6
-            ArrayList<String> list = extractEducData(arr[i]);
+            ArrayList<String> list = extractData(arr[i], 38, 41);
             Education2016 educ = new Education2016();
             educ.addData(list);
 
@@ -177,12 +177,12 @@ public class Utils {
         return output;
     }
 
-    private static ArrayList<String> extractEducData(String s) {
+    private static ArrayList<String> extractData(String s, int start, int end) {
         ArrayList<String> list = new ArrayList<>();
         s = removeQuotesCommasLine(s);
         String[] arrByComma = s.split(",");
 
-        for(int i = 38; i <= 41; i++) {
+        for(int i = start; i <= end; i++) {
             String curr;
             if(i >= arrByComma.length) curr = "0";
             else curr = arrByComma[i];
@@ -197,7 +197,7 @@ public class Utils {
         String[] arr = elecFile.split("\n");
 
         for (int i = 1; i < arr.length; i++) {
-            ArrayList<String> list = extractElecData(arr[i]);
+            ArrayList<String> list = extractData(arr[i],1, 3);
             Election2016 elec = new Election2016();
             elec.addData(list);
 
@@ -206,40 +206,18 @@ public class Utils {
         return output;
     }
 
-    private static ArrayList<String> extractElecData(String s) {
-        ArrayList<String> list = new ArrayList<>();
-        String[] arrByComma = s.split(",");
-
-        list.add(arrByComma[1]);
-        list.add(arrByComma[2]);
-        list.add(arrByComma[3]);
-        return list;
-    }
-
     private static ArrayList<Employment2016> parseEmployData(String employFile) {
         ArrayList<Employment2016> output = new ArrayList<>();
         String[] arr = employFile.split("\n");
 
         for (int i = 9; i < arr.length; i++) {
-            ArrayList<String> list = extractEmployData(arr[i]);
+            ArrayList<String> list = extractData(arr[i],45,48);
             Employment2016 em = new Employment2016();
             em.addData(list);
 
             output.add(em);
         }
         return output;
-    }
-
-    private static ArrayList<String> extractEmployData(String s) {
-        ArrayList<String> list = new ArrayList<>();
-        s = removeQuotesCommasLine(s);
-        String[] arrByComma = s.split(",");
-
-        list.add(arrByComma[45]);
-        list.add(arrByComma[46]);
-        list.add(arrByComma[47]);
-        list.add(arrByComma[48]);
-        return list;
     }
 
     private static String removeQuotesCommasLine(String curr) {
