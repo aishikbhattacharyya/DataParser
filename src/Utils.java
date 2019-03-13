@@ -166,11 +166,12 @@ public class Utils {
         ArrayList<Education2016> output = new ArrayList<>();
         String[] arr = educFile.split("\n");
 
-        for (int i = 6; i < arr.length; i++) {
+        for (int i = 6; i < 3288; i++) {//6
             ArrayList<String> list = extractEducData(arr[i]);
             Education2016 educ = new Education2016();
             educ.addData(list);
 
+            System.out.println(i);
             output.add(educ);
         }
         return output;
@@ -181,10 +182,13 @@ public class Utils {
         s = removeQuotesCommasLine(s);
         String[] arrByComma = s.split(",");
 
-        list.add(arrByComma[38]);
-        list.add(arrByComma[39]);
-        list.add(arrByComma[40]);
-        list.add(arrByComma[41]);
+        for(int i = 38; i <= 41; i++) {
+            String curr;
+            if(i >= arrByComma.length) curr = "0";
+            else curr = arrByComma[i];
+            if(curr.equals("")) curr = "0";
+            list.add(curr);
+        }
         return list;
     }
 
@@ -240,16 +244,18 @@ public class Utils {
 
     private static String removeQuotesCommasLine(String curr) {
         String output = "";
-        for(int i = 0; i < curr.length(); i++){
+
+        int le = curr.length();
+
+        for(int i = 0; i < curr.length(); i++){//0
             String toAdd = curr.substring(i, i + 1);
             if(toAdd.equals("\"")){
                 int index = curr.indexOf("\"", i + 1);
                 String removed = removeQuotesCommasOneNumber(curr.substring(i, index + 1));
-                toAdd = removed;
+                toAdd = removed.trim();
 
                 i = index;
             }
-            toAdd = toAdd.trim();
             output += toAdd;
         }
         return output;
