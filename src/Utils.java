@@ -95,9 +95,9 @@ public class Utils {
     private static void putDataIntoState(String elecFile, ArrayList<Election2016> elecData, String educFile, ArrayList<Education2016> educData, String employFile, ArrayList<Employment2016> employData, ArrayList<State> states) {
         String[] arr = elecFile.split("\n");
         ArrayList<County> counties = new ArrayList<>();
-        String state = "";
+        String state = "CA";//""
 
-        for(int i = 1; i < arr.length; i++){
+        for(int i = 223; i < arr.length; i++){//1
             String[] curr = arr[i].split(",");
             Collections.reverse(Arrays.asList(curr));
 
@@ -109,15 +109,20 @@ public class Utils {
                 state = curr[2];
             }
 
+            System.out.println(i);
             String county = curr[1];
 
             County c = new County(county);
-            c.setFips(Integer.parseInt(curr[0]));
+            int fips = Integer.parseInt(curr[0]);
+            c.setFips(fips);
 
-            int educIndex = getData(educFile, c.getName(), 6);
-            int employIndex = getData(employFile, c.getName(), 9);
-            Education2016 educ = educData.get(educIndex);
-            Employment2016 employ = employData.get(employIndex);
+            int educIndex = getData(educFile, fips, 6);
+            int employIndex = getData(employFile, fips, 9);
+
+            Education2016 educ = null;
+            Employment2016 employ = null;
+            if(educIndex != -1)educ = educData.get(educIndex);
+            if(employIndex != -1) employ = employData.get(employIndex);
 
             c.setEduc2016(educ);
             c.setEmploy2016(employ);
@@ -132,12 +137,14 @@ public class Utils {
         return null;
     }
 
-    private static int getData(String educFile, String county, int i) {
+    private static int getData(String educFile, int fips, int i) {
         String[] arr = educFile.split("\n");
-        for(int j = i; i < arr.length; i++){
+        for(int j = i; j < arr.length; j++){
             String[] arrComma = arr[j].split(",");
+            String currFips = arrComma[0];
+            if(currFips.charAt(0) == '0') currFips = currFips.substring(1);
 
-            if(arrComma[2].equals(county)) return i-j;
+            if(Integer.parseInt(currFips) == fips) return j-i;
         }
         return -1;
     }
@@ -155,7 +162,7 @@ public class Utils {
             String[] curr = arr[i].split(",");
             Collections.reverse(Arrays.asList(curr));
 
-            String state = arr[2];
+            String state = curr[2];
             State s = new State(state);
             if(!states.contains(s)) states.add(s);
         }
@@ -171,7 +178,6 @@ public class Utils {
             Education2016 educ = new Education2016();
             educ.addData(list);
 
-            System.out.println(i);
             output.add(educ);
         }
         return output;
