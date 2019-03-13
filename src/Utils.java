@@ -101,7 +101,7 @@ public class Utils {
             String[] curr = arr[i].split(",");
             Collections.reverse(Arrays.asList(curr));
 
-            if(i == 0) state = curr[2];
+            if(i == 1) state = curr[2];
             if(!curr[2].equals(state)){
                 State s = getState(states, state);
                 s.setCounties(counties);
@@ -109,10 +109,10 @@ public class Utils {
                 state = curr[2];
             }
 
-            String county = arr[1];
+            String county = curr[1];
 
             County c = new County(county);
-            c.setFips(Integer.parseInt(arr[0]));
+            c.setFips(Integer.parseInt(curr[0]));
 
             int educIndex = getData(educFile, c.getName(), 6);
             int employIndex = getData(employFile, c.getName(), 9);
@@ -187,6 +187,7 @@ public class Utils {
             if(i >= arrByComma.length) curr = "0";
             else curr = arrByComma[i];
             if(curr.equals("")) curr = "0";
+            curr = curr.trim();
             list.add(curr);
         }
         return list;
@@ -210,8 +211,8 @@ public class Utils {
         ArrayList<Employment2016> output = new ArrayList<>();
         String[] arr = employFile.split("\n");
 
-        for (int i = 9; i < arr.length; i++) {
-            ArrayList<String> list = extractData(arr[i],45,48);
+        for (int i = 9; i < arr.length; i++) {//9
+            ArrayList<String> list = extractData(arr[i],42,45);//45, 48
             Employment2016 em = new Employment2016();
             em.addData(list);
 
